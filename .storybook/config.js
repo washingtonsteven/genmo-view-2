@@ -1,10 +1,18 @@
-import { configure } from "@storybook/react";
+import React from "react";
+import { configure, addDecorator } from "@storybook/react";
+import { Grommet } from "grommet";
+import grommetTheme from "../src/styles/grommetTheme";
 
 const req = require.context("../src/components", true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
+
+const GrommetDecorator = storyFn => (
+  <Grommet theme={grommetTheme}>{storyFn()}</Grommet>
+);
+addDecorator(GrommetDecorator);
 
 configure(loadStories, module);
 

@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "@esaevian/genmo-v2": "^0.0.3",
+    "grommet": "^2.7.4",
+    "polished": "^3.4.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
