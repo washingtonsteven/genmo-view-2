@@ -1,6 +1,6 @@
 import React from "react";
 import StyledFileInput from "./StyledFileInput";
-import Button from "../Button";
+import { Button } from "grommet";
 
 const fileUploadSubmit = (e, callback = () => {}) => {
   e.preventDefault();
