@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Box } from "grommet";
+import { Box, Button } from "grommet";
 import styled from "styled-components";
 
 const Input = styled.input.attrs({
@@ -21,12 +21,11 @@ const boxProps = {
     style: "dashed"
   },
   round: "small",
-  height: "medium",
-  width: "medium",
-  pad: "small"
+  pad: "small",
+  height: "100%"
 };
 
-export default ({ accept, onChange = () => {} }) => {
+export default ({ accept, onChange = () => {}, onSubmit = () => {} }) => {
   const inputRef = useRef(null);
   const [currentFile, setCurrentFile] = useState(null);
 
@@ -37,14 +36,20 @@ export default ({ accept, onChange = () => {} }) => {
     onChange(e);
   };
 
+  const onFormSubmit = e => {
+    e.preventDefault();
+    onSubmit(e);
+  };
+
   return (
-    <Box {...boxProps}>
+    <Box {...boxProps} as="form" onSubmit={onFormSubmit}>
       <Label
         onClick={e => inputRef && inputRef.current && inputRef.current.click()}
       >
         {currentFile ? currentFile.name : "Upload your files here!"}
         <Input onChange={onFileChange} ref={inputRef} accept={accept} />
       </Label>
+      <Button type="submit" label="Submit" />
     </Box>
   );
 };
