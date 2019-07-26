@@ -38,7 +38,26 @@ export default ({ accept, onChange = () => {}, onSubmit = () => {} }) => {
 
   const onFormSubmit = e => {
     e.preventDefault();
-    onSubmit(e);
+    if (
+      inputRef.current.files.length &&
+      inputRef.current.files[0].type === "application/json"
+    ) {
+      const fileReader = new FileReader();
+      fileReader.onload = onFileLoad;
+      fileReader.readAsText(inputRef.current.files[0]);
+    } else {
+      onSubmit(null);
+    }
+  };
+
+  const onFileLoad = e => {
+    console.log("file loaded");
+    try {
+      const json = JSON.parse(e.target.result);
+      onSubmit(json);
+    } catch (e) {
+      onSubmit(null);
+    }
   };
 
   return (
