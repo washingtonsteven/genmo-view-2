@@ -3,6 +3,7 @@ import { storiesOf } from "@storybook/react";
 import PassageView from "./PassageView";
 import stories from "../../data/stories";
 import { Genmo } from "@esaevian/genmo-v2";
+import { action } from "@storybook/addon-actions";
 
 const GenmoTest = stories[0];
 
@@ -19,5 +20,8 @@ genmo.respondToPrompt({
 genmo.followLink("1");
 
 storiesOf("PassageView", module).add("default", () => (
-  <PassageView passage={genmo.outputCurrentPassage()} />
+  <PassageView
+    passage={genmo.outputCurrentPassage()}
+    onLinkClicked={action("PassageView - LinkClicked")}
+  />
 ));

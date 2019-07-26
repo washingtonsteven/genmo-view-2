@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Box, Button } from "grommet";
 import styled from "styled-components";
+import DefaultBox from "../DefaultBox";
+import TitleBar from "../TitleBar";
 
 const Input = styled.input.attrs({
   type: "file"
@@ -25,7 +27,13 @@ const boxProps = {
   height: "100%"
 };
 
-export default ({ accept, onChange = () => {}, onSubmit = () => {} }) => {
+export default ({
+  title = "Upload a story",
+  accept,
+  onClose,
+  onChange = () => {},
+  onSubmit = () => {}
+}) => {
   const inputRef = useRef(null);
   const [currentFile, setCurrentFile] = useState(null);
 
@@ -61,16 +69,20 @@ export default ({ accept, onChange = () => {}, onSubmit = () => {} }) => {
   };
 
   return (
-    <Box {...boxProps} as="form" onSubmit={onFormSubmit}>
-      <Label
-        onClick={e => inputRef && inputRef.current && inputRef.current.click()}
-      >
-        <span>
-          {currentFile ? currentFile.name : "Upload your files here!"}
-        </span>
-        <Input onChange={onFileChange} ref={inputRef} accept={accept} />
-      </Label>
-      <Button type="submit" label="Submit" />
-    </Box>
+    <DefaultBox title={title} onClose={onClose}>
+      <Box {...boxProps} as="form" onSubmit={onFormSubmit}>
+        <Label
+          onClick={e =>
+            inputRef && inputRef.current && inputRef.current.click()
+          }
+        >
+          <span>
+            {currentFile ? currentFile.name : "Upload your files here!"}
+          </span>
+          <Input onChange={onFileChange} ref={inputRef} accept={accept} />
+        </Label>
+        <Button type="submit" label="Submit" />
+      </Box>
+    </DefaultBox>
   );
 };

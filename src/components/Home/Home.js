@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Box, Button } from "grommet";
+import { Button } from "grommet";
 import FileUpload from "../FileUpload";
 import Library from "../Library";
 import TitleBar from "../TitleBar";
+import DefaultBox from "../DefaultBox";
 
 const HOME_STATES = {
   SELECT: "SELECT",
@@ -18,25 +19,21 @@ export default ({ onStorySelected }) => {
   const setUploadState = () => setHomeState(HOME_STATES.UPLOAD);
 
   return (
-    <Box>
-      {homeState === HOME_STATES.NONE && (
-        <>
-          <Button label="Select a Story" onClick={setLibraryState} />
-          <Button label="Upload a Story" onClick={setUploadState} />
-        </>
-      )}
+    <DefaultBox title="Home" gap="10px">
+      {homeState === HOME_STATES.NONE && [
+        <Button
+          label="Select a Story"
+          onClick={setLibraryState}
+          key="library"
+        />,
+        <Button label="Upload a Story" onClick={setUploadState} key="upload" />
+      ]}
       {homeState === HOME_STATES.UPLOAD && (
-        <>
-          <TitleBar onClose={resetHomeState}>Uploader</TitleBar>
-          <FileUpload onSubmit={onStorySelected} />
-        </>
+        <FileUpload onSubmit={onStorySelected} onClose={resetHomeState} />
       )}
       {homeState === HOME_STATES.SELECT && (
-        <>
-          <TitleBar onClose={resetHomeState}>Library</TitleBar>
-          <Library onStoryClicked={onStorySelected} />
-        </>
+        <Library onStoryClicked={onStorySelected} onClose={resetHomeState} />
       )}
-    </Box>
+    </DefaultBox>
   );
 };

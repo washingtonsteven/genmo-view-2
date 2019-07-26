@@ -1,8 +1,9 @@
 import React from "react";
 import stories from "../../data/stories";
-import { Box, Button } from "grommet";
+import { Button } from "grommet";
+import DefaultBox from "../DefaultBox";
 
-export default ({ onStoryClicked = () => {} }) => {
+export default ({ title = "Library", onClose, onStoryClicked = () => {} }) => {
   const storyClicked = e => {
     const selectedStory = stories.find(
       story => story.ifid === e.target.dataset.storyId
@@ -12,7 +13,7 @@ export default ({ onStoryClicked = () => {} }) => {
   };
 
   return (
-    <Box>
+    <DefaultBox title={title} onClose={onClose}>
       {stories.map(story => (
         <Button
           label={story.name}
@@ -21,6 +22,6 @@ export default ({ onStoryClicked = () => {} }) => {
           data-story-id={story.ifid}
         />
       ))}
-    </Box>
+    </DefaultBox>
   );
 };

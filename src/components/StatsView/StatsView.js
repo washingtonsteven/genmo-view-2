@@ -1,5 +1,7 @@
 import React from "react";
 import { Box, DataTable, Text, Meter } from "grommet";
+import TitleBar from "../TitleBar";
+import DefaultBox from "../DefaultBox";
 
 const renderData = ({ stat, value }) => {
   return (
@@ -41,7 +43,7 @@ const formatData = dataset => {
 };
 
 export default ({ data }) => (
-  <Box>
+  <DefaultBox title="Stats">
     <DataTable {...formatData(data)} />
-  </Box>
+  </DefaultBox>
 );

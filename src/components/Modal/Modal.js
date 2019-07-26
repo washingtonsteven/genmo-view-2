@@ -1,6 +1,7 @@
 import React from "react";
 import TitleBar from "../TitleBar/TitleBar";
 import { Box, Button } from "grommet";
+import DefaultBox from "../DefaultBox/DefaultBox";
 
 export default ({
   onClose,
@@ -9,10 +10,7 @@ export default ({
   title = "Modal Title",
   children = "Modal Content"
 }) => (
-  <Box elevation="large" round="small">
-    <TitleBar onClose={onClose} round={{ size: "small", corner: "top" }}>
-      {title}
-    </TitleBar>
+  <DefaultBox title={title} onClose={onClose} elevation="large">
     <Box pad="medium" background="light-2">
       {children}
     </Box>
@@ -26,5 +24,5 @@ export default ({
       <Button onClick={onConfirm} label="Okay" primary />
       <Button onClick={onCancel} label="Cancel" />
     </Box>
-  </Box>
+  </DefaultBox>
 );
