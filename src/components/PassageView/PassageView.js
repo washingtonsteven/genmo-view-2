@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Text, Button } from "grommet";
-import TitleBar from "../TitleBar";
 import DefaultBox from "../DefaultBox";
 
 export default ({

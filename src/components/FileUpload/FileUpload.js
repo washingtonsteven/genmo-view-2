@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { Box, Button } from "grommet";
 import styled from "styled-components";
 import DefaultBox from "../DefaultBox";
-import TitleBar from "../TitleBar";
 
 const Input = styled.input.attrs({
   type: "file"

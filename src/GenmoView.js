@@ -1,8 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Genmo } from "@esaevian/genmo-v2";
 import GenmoTest from "./data/02-GenmoTest.json";
+import Home from "./components/Home/Home.js";
+import PassageView from "./components/PassageView/index.js";
+import { Grommet } from "grommet";
+import grommetTheme from "./styles/grommetTheme";
 
-class GenmoView extends Component {
+class GenmoViewDebug extends Component {
   constructor(props) {
     super(props);
 
@@ -54,4 +58,49 @@ class GenmoView extends Component {
   }
 }
 
-export default GenmoView;
+let genmo = null;
+const GenmoView = () => {
+  const [loading, setLoading] = useState(false);
+  const [currentStory, setCurrentStory] = useState(null);
+
+  useEffect(() => {
+    if (!genmo && currentStory && loading) {
+      genmo = new Genmo(currentStory, { outputFunction: p => p });
+      setLoading(false);
+    }
+  });
+
+  if (!currentStory)
+    return (
+      <Home
+        onStorySelected={story => {
+          setCurrentStory(story);
+          setLoading(true);
+        }}
+      />
+    );
+  else if (genmo) return <PassageView passage={genmo.outputCurrentPassage()} />;
+  else if (loading) return <>Loading</>;
+  else
+    return (
+      <>
+        uh oh.
+        <br />
+        <pre>
+          <code>
+            {JSON.stringify(
+              { loading, currentStory, genmo: Boolean(genmo) },
+              null,
+              1
+            )}
+          </code>
+        </pre>
+      </>
+    );
+};
+
+export default props => (
+  <Grommet theme={grommetTheme}>
+    <GenmoView {...props} />
+  </Grommet>
+);

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button } from "grommet";
 import FileUpload from "../FileUpload";
 import Library from "../Library";
-import TitleBar from "../TitleBar";
 import DefaultBox from "../DefaultBox";
 
 const HOME_STATES = {
