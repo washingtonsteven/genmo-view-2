@@ -14,8 +14,12 @@ genmo.followLink("1");
 genmo.followLink("4");
 const prompts = genmo.outputCurrentPassage().needsPrompt;
 const promptValue = "Steve";
+console.log(prompts);
 genmo.respondToPrompt({
   [prompts[0].key]: promptValue
+});
+genmo.respondToPrompt({
+  [prompts[1].key]: "19, and i never learned how to read."
 });
 genmo.followLink("1");
 
